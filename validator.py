@@ -1,2 +1,4 @@
-# PART 1: RETURN RANDOM NUMBER
-# PART 2: CODE COMPLICATED THING
+import random
+
+def feature_validator(features: list[int]) -> int:
+    return random.randint(0, 100)
