@@ -1,4 +1,4 @@
-from validator import feature_validator  # Import the feature_validator function
+from validator import feature_validator  
 
 class Node:
     def __init__(self, features: list[int]):
