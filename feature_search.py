@@ -8,22 +8,39 @@ class FeatureDriver:
 
     def forwards(self) -> Node:
         self.global_node = Node([])
+        prev_node = self.global_node
 
-        while len(self.global_node.features) < self.num_features:
+        while len(prev_node.features) < self.num_features:
             best_node = None
 
             for index in range(1, self.num_features + 1):
-                if index in self.global_node.features:
+                if index in prev_node.features:
                     continue
 
-                new_features = self.global_node.features + [index]
+                new_features = sorted(prev_node.features + [index])
                 curr_node = Node(new_features)
 
                 if best_node is None or curr_node.score > best_node.score:
                     best_node = curr_node
 
+            prev_node = best_node
+
             if self.global_node.score < best_node.score:
                 self.global_node = best_node
+                print()
+                print(
+                    f"Feature set {self.global_node.features} is a NEW best, accuracy is {self.global_node.score}"
+                )
+                print()
+            else:
+                print()
+                print(
+                    f"Feature set {best_node.features} was best at this level, accuracy is {best_node.score}"
+                )
+                print(
+                    f"Feature set {self.global_node.features} is still the overall best, accuracy is {self.global_node.score}"
+                )
+                print()
 
         return self.global_node
 
