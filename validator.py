@@ -1,5 +1,6 @@
 import random
 
+random.seed(10)
 
 def feature_validator(features: list[int]) -> int:
     if (len(features) <= 0):
