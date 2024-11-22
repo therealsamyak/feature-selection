@@ -43,8 +43,44 @@ class FeatureDriver:
                 print()
 
         return self.global_node
+    
+    def backwards(self) -> Node:
+        prev_node = self.global_node
+
+        while len(prev_node.features) > 1:
+            best_node = None
+
+            for index in prev_node.features:
+                #basically removes an index
+                new_features = [f for f in prev_node.features if f != index] 
+                curr_node = Node(sorted(new_features))
+
+
+                if best_node is None or curr_node.score > best_node.score:
+                    best_node = curr_node
+
+            prev_node = best_node
+
+            if self.global_node.score < best_node.score:
+                self.global_node = best_node
+                print()
+                print(
+                    f"Feature set {self.global_node.features} is a NEW best, accuracy is {self.global_node.score}"
+                )
+                print()
+            else:
+                print()
+                print(
+                    f"Feature set {best_node.features} was best at this level, accuracy is {best_node.score}"
+                )
+                print(
+                    f"Feature set {self.global_node.features} is still the overall best, accuracy is {self.global_node.score}"
+                )
+                print()
+
+        return self.global_node
 
 
 test = FeatureDriver(4)
-best_node = test.forwards()
+best_node = test.backwards()
 print("best subset ", best_node.features, best_node.score)
