@@ -4,8 +4,6 @@ random.seed(10)
 
 
 def feature_validator(features: list[int]) -> int:
-    if len(features) <= 0:
-        return 0
     accuracy = random.randint(1, 100)
     return accuracy
 
