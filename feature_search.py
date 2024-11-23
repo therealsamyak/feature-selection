@@ -8,6 +8,12 @@ class FeatureDriver:
 
     def forwards(self) -> Node:
         self.global_node = Node([], None)
+        print()
+        print(
+            f"Feature set {self.global_node.features} is initially the best, accuracy is {self.global_node.score}"
+        )
+        print()
+
         prev_node = self.global_node
 
         while len(prev_node.features) < self.num_features:
@@ -63,44 +69,32 @@ class FeatureDriver:
             for index in prev_node.features:
                 new_features = [f for f in prev_node.features if f != index]
 
-                if len(new_features) <= 0:
-                    continue
-
                 curr_node = Node(sorted(new_features), prev_node)
 
-                if curr_node.features:
-                    print(
-                        f"Using feature(s) {curr_node.features}, the accuracy is {curr_node.score}"
-                    )
+                print(
+                    f"Using feature(s) {curr_node.features}, the accuracy is {curr_node.score}"
+                )
 
                 if best_node is None or curr_node > best_node:
                     best_node = curr_node
 
-            if best_node and best_node.features:
-                prev_node = best_node
+            prev_node = best_node
 
-                if self.global_node < best_node:
-                    self.global_node = best_node
-                    print()
-                    print(
-                        f"Feature set {self.global_node.features} is a NEW best, accuracy is {self.global_node.score}"
-                    )
-                    print()
-                else:
-                    print()
-                    print(
-                        f"Feature set {best_node.features} was best at this level, accuracy is {best_node.score}"
-                    )
-                    print(
-                        f"Feature set {self.global_node.features} is still the overall best, accuracy is {self.global_node.score}"
-                    )
-                    print()
+            if self.global_node < best_node:
+                self.global_node = best_node
+                print()
+                print(
+                    f"Feature set {self.global_node.features} is a NEW best, accuracy is {self.global_node.score}"
+                )
+                print()
             else:
-                break
+                print()
+                print(
+                    f"Feature set {best_node.features} was best at this level, accuracy is {best_node.score}"
+                )
+                print(
+                    f"Feature set {self.global_node.features} is still the overall best, accuracy is {self.global_node.score}"
+                )
+                print()
 
         return self.global_node
-
-
-test = FeatureDriver(4)
-best_node = test.forwards()
-print("Finished search!! The best feature subset is", best_node.features, ", which has an accuracy of ", best_node.score)
