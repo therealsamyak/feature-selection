@@ -20,12 +20,12 @@ class FeatureDriver:
                 new_features = sorted(prev_node.features + [index])
                 curr_node = Node(new_features)
 
-                if best_node is None or curr_node.score > best_node.score:
+                if best_node is None or curr_node > best_node:
                     best_node = curr_node
 
             prev_node = best_node
 
-            if self.global_node.score < best_node.score:
+            if self.global_node < best_node:
                 self.global_node = best_node
                 print()
                 print(
@@ -56,12 +56,12 @@ class FeatureDriver:
                 curr_node = Node(sorted(new_features))
 
 
-                if best_node is None or curr_node.score > best_node.score:
+                if best_node is None or curr_node > best_node:
                     best_node = curr_node
 
             prev_node = best_node
 
-            if self.global_node.score < best_node.score:
+            if self.global_node < best_node:
                 self.global_node = best_node
                 print()
                 print(
@@ -82,5 +82,5 @@ class FeatureDriver:
 
 
 test = FeatureDriver(4)
-best_node = test.backwards()
+best_node = test.forwards()
 print("best subset ", best_node.features, best_node.score)
