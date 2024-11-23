@@ -3,6 +3,7 @@ from feature_search import FeatureDriver
 
 
 def main():
+    print()
     print("Welcome to Samyak & Ram's Feature Selection Algorithm.")
 
     total_features = int(input("Please enter total number of features: "))
