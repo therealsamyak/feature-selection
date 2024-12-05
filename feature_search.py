@@ -1,4 +1,4 @@
-from feature_node import Feature_Node
+from feature_node import *
 
 
 class FeatureDriver:

@@ -1,4 +1,4 @@
-from validator import feature_validator
+from validator import *
 
 
 class Feature_Node:
