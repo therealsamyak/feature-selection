@@ -1,13 +1,13 @@
-from feature_node import Node
+from feature_node import Feature_Node
 
 
 class FeatureDriver:
     def __init__(self, num_features) -> None:
         self.num_features = num_features
-        self.global_node = Node([], None)
+        self.global_node = Feature_Node([], None)
 
-    def forwards(self) -> Node:
-        self.global_node = Node([], None)
+    def forwards(self) -> Feature_Node:
+        self.global_node = Feature_Node([], None)
         print()
         print(
             f"Feature set {self.global_node.features} is initially the best, accuracy is {self.global_node.score}"
@@ -24,7 +24,7 @@ class FeatureDriver:
                     continue
 
                 new_features = sorted(prev_node.features + [index])
-                curr_node = Node(new_features, prev_node)
+                curr_node = Feature_Node(new_features, prev_node)
                 print(
                     f"Using feature(s) {curr_node.features}, the accuracy is {curr_node.score}"
                 )
@@ -53,8 +53,8 @@ class FeatureDriver:
 
         return self.global_node
 
-    def backwards(self) -> Node:
-        self.global_node = Node(list(range(1, self.num_features + 1)), None)
+    def backwards(self) -> Feature_Node:
+        self.global_node = Feature_Node(list(range(1, self.num_features + 1)), None)
         print()
         print(
             f"Feature set {self.global_node.features} is initially the best, accuracy is {self.global_node.score}"
@@ -69,7 +69,7 @@ class FeatureDriver:
             for index in prev_node.features:
                 new_features = [f for f in prev_node.features if f != index]
 
-                curr_node = Node(sorted(new_features), prev_node)
+                curr_node = Feature_Node(sorted(new_features), prev_node)
 
                 print(
                     f"Using feature(s) {curr_node.features}, the accuracy is {curr_node.score}"
