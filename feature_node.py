@@ -8,7 +8,9 @@ class Feature_Node:
             self.features
         )  # Validate features and compute score
         self.next = []  # Initialize next as an empty list
-        self.backward = prev  # Assign the backward link to the provided previous Feature_Node
+        self.backward = (
+            prev  # Assign the backward link to the provided previous Feature_Node
+        )
 
     @classmethod
     def from_existing(cls, features: list[int], prev: "Feature_Node"):
