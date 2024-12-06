@@ -17,7 +17,19 @@ class Classifier:
         self.createItemNodeMap(file_name)
 
     def createItemNodeMap(self, file_name: str):
-        pass
+        """
+        Reads the shit from  file and populates the global_node_map.
+        Each line in the file corresponds to an Item_Node. type
+        """
+        with open(file_name, 'r') as file:
+            lines = file.readlines()
+            for idx, line in enumerate(lines, start=1):
+                values = line.strip().split()
+                label = int(float(values[0]))  # First column is the class label
+                features = list(map(float, values[1:]))  # Remaining columns are features
+
+                # Create an Item_Node and add it to the global_node_map
+                self.global_node_map[idx] = Item_Node(id=idx, label=label, features=features)
 
     def classify(self, uniqueID: int):
         """

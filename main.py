@@ -1,6 +1,6 @@
 # import stuff to main as necessary
 from feature_search import FeatureDriver
-
+from classifier import Classifier
 
 def main():
     print()
@@ -40,4 +40,11 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    dataset_path = "small-test-dataset.txt"
+
+    # Initialize the classifier with the dataset file
+    classifier = Classifier(dataset_path)
+
+    # Example access to a node
+    node = classifier.global_node_map[1]
+    print(f"Node ID: {node.id}, Label: {node.label}, Features: {node.features}")
