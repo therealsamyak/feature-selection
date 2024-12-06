@@ -51,4 +51,14 @@ class Classifier:
 
     def train(self, uniqueIDArray: List[int], featureSubsetArray: List[int]):
         self.feature_subset_array = sorted(featureSubsetArray)
-        pass
+
+        for nodeID in uniqueIDArray:
+            nodeData = self.global_node_map[nodeID]
+
+            newNodeData = Item_Node(
+                nodeID,
+                nodeData.label,
+                [nodeData.features[i - 1] for i in self.feature_subset_array],
+            )
+
+            self.local_node_map[nodeID] = newNodeData
