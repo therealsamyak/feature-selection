@@ -4,8 +4,8 @@ from math import sqrt
 class Classifier:
     def __init__(self, global_node_map):
         self.global_node_map = global_node_map
-        self.local_node_map = None
-        self.feature_subset_array = None
+        self.local_node_map = dict()
+        self.feature_subset_array = list()
 
     def classify(self, uniqueID):
 
@@ -18,7 +18,7 @@ class Classifier:
         target_features = [target_node.features[i] for i in self.feature_subset_array]
 
         global_dist = float("inf")
-        closest_node = None
+        closest_node = -1
 
         for nodeID, nodeData in self.local_node_map.items():
             local_dist = sqrt(
