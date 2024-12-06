@@ -14,6 +14,7 @@ class Classifier:
         self.global_node_map: Dict[int, Item_Node] = {}
         self.local_node_map: Dict[int, Item_Node] = {}
         self.feature_subset_array: List[int] = []
+
         self.createItemNodeMap(file_name)
 
     def createItemNodeMap(self, file_name: str):
