@@ -1,11 +1,23 @@
 from math import sqrt
+from typing import Dict, List
+
+
+class Item_Node:
+    def __init__(self, id: int, label: int, features: List[float]):
+        self.id = id
+        self.label = label
+        self.features = features
 
 
 class Classifier:
-    def __init__(self, global_node_map):
-        self.global_node_map = global_node_map
-        self.local_node_map = dict()
-        self.feature_subset_array = list()
+    def __init__(self, file_name):
+        self.global_node_map: Dict[int, Item_Node] = {}
+        self.local_node_map: Dict[int, Item_Node] = {}
+        self.feature_subset_array: List[int] = []
+        self.createItemNodeMap(file_name)
+
+    def createItemNodeMap(self, file_name: str):
+        pass
 
     def classify(self, uniqueID: int):
         """
@@ -37,6 +49,6 @@ class Classifier:
 
         return self.local_node_map[closest_node].label
 
-    def train(self, uniqueIDArray: list[int], featureSubsetArray: list[int]):
+    def train(self, uniqueIDArray: List[int], featureSubsetArray: List[int]):
         self.feature_subset_array = sorted(featureSubsetArray)
         pass
