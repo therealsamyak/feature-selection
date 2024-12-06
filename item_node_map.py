@@ -1,4 +1,4 @@
-class ItemNode:
+class Item_Node:
     def __init__(self, id, label, features):
         self.id = id
         self.label = label
