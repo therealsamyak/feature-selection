@@ -56,8 +56,10 @@ class Classifier:
 
             # euclidian distance
             local_dist = sqrt(
-                (target - local) ** 2
-                for target, local in zip(target_features, nodeData.features)
+                sum(
+                    (target - local) ** 2
+                    for target, local in zip(target_features, nodeData.features)
+                )
             )
 
             if local_dist < global_dist:
