@@ -1,4 +1,4 @@
-from classifier import *
+from .classifier import *
 
 
 class Validator:
