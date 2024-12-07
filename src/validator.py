@@ -28,9 +28,9 @@ class Validator:
                 )
                 < 0.1
             ):
-                print("correctly classified")
+                print("correctly classified\n")
                 correctly_classified += 1
             else:
-                print("incorrectly classified")
+                print("incorrectly classified\n")
 
         return correctly_classified * 1.0 / len(keys)
