@@ -14,7 +14,7 @@ def main():
     # Debug
     dataset_path = "datasets/small-test-dataset.txt"
     test_validator = Validator(dataset_path)
-    print(test_validator.validate([3, 5, 7]))
+    test_validator.validate([1, 15, 27])
 
     return
 

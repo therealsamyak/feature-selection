@@ -1,3 +1,5 @@
+import time
+
 from .classifier import *
 
 
@@ -11,11 +13,14 @@ class Validator:
         Calculates accuracy of feature_subset using Leave-One-Out validation
         """
 
+        start_time = time.time_ns()
+
         keys = list(self.global_map.keys())
         correctly_classified = 0
 
         # leave one out validator
         for index, uniqueID in enumerate(keys):
+            iteration_start_time = time.time_ns()
 
             # train classifier
             training_data = keys[:index] + keys[index + 1 :]
@@ -28,9 +33,23 @@ class Validator:
                 )
                 < 0.1
             ):
-                print("Correctly Classified!\n")
+                iteration_end_time = time.time_ns()
+                print(
+                    "Correctly Classified in "
+                    + str(iteration_end_time - iteration_start_time)
+                    + " nanoseconds!\n"
+                )
                 correctly_classified += 1
             else:
-                print("Incorrectly Classified\n")
+                iteration_end_time = time.time_ns()
+                print(
+                    "Incorrectly Classified in "
+                    + str(iteration_end_time - iteration_start_time)
+                    + " nanoseconds.\n"
+                )
 
-        return correctly_classified * 1.0 / len(keys)
+        end_time = time.time_ns()
+        accuracy = correctly_classified * 1.0 / len(keys)
+        print("Overall accuracy is", accuracy)
+        print("Finished validation in", end_time - start_time, "nanoseconds")
+        return accuracy

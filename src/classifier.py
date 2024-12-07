@@ -82,7 +82,14 @@ class Classifier:
                 global_dist = local_dist
                 closest_node = nodeID
 
-        print("Node", uniqueID, "closest node is Node", closest_node, "with distance", global_dist)
+        print(
+            "Node",
+            uniqueID,
+            "closest node is Node",
+            closest_node,
+            "with distance",
+            global_dist,
+        )
         return self.local_node_map[closest_node].label
 
     def train(self, uniqueIDArray: List[int], featureSubsetArray: List[int]):
@@ -92,7 +99,6 @@ class Classifier:
         # account for 0-indexing
         self.feature_subset_array = sorted([x - 1 for x in featureSubsetArray])
         print("Feature Subset:", featureSubsetArray)
-        print("Training IDs: ", uniqueIDArray)
 
         for nodeID in uniqueIDArray:
             nodeData = self.global_node_map[nodeID]
