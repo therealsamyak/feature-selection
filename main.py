@@ -14,7 +14,7 @@ def main():
     # print(test_validator.validate([3, 5, 7]))
 
     # large data set
-    dataset_path = "datasets/small-test-dataset.txt"
+    dataset_path = "datasets/large-test-dataset.txt"
     test_validator = Validator(dataset_path)
     test_validator.validate([1, 15, 27])
 
