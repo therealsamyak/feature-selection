@@ -16,10 +16,12 @@ class Validator:
 
         # leave one out validator
         for index, uniqueID in enumerate(keys):
-            training_data = keys[:index] + keys[index + 1 :]
 
+            # train classifier
+            training_data = keys[:index] + keys[index + 1 :]
             self.classifier.train(training_data, feature_subset_array)
 
+            # check accuracy
             if self.global_map[uniqueID].label == self.classifier.classify(uniqueID):
                 correctly_classified += 1
 
