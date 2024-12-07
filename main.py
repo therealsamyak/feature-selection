@@ -4,46 +4,16 @@ from validator import *
 
 
 def main():
-    print()
-    print("Welcome to Samyak & Ram's Feature Selection Algorithm.")
+    # Part 1
+    # FeatureDriver.userInputDriver()
 
-    total_features = int(input("Please enter total number of features: "))
-    if total_features <= 0:
-        raise ValueError("The number of features must be a positive integer.")
+    # Part 2
+    dataset_path = "small-test-dataset.txt"
+    test_validator = Validator(dataset_path)
+    print(test_validator.validate([3, 5, 7]))
 
-    print()
-    print("Type the number of the algorithm you want to run.")
-    print("1. Forward Selection")
-    print("2. Backward Elimination")
-
-    choice = int(input("Your choice: "))
-    if choice not in (1, 2):
-        raise ValueError("Please choose a valid option (1 or 2).")
-
-    test = FeatureDriver(total_features)
-
-    if choice == 1:
-        best_node = test.forwards()
-        print(
-            "\nFinished search!! The best feature subset is",
-            best_node.features,
-            ", which has an accuracy of",
-            best_node.score,
-        )
-    elif choice == 2:
-        best_node = test.backwards()
-        print(
-            "\nFinished search!! The best feature subset is",
-            best_node.features,
-            ", which has an accuracy of",
-            best_node.score,
-        )
+    return
 
 
 if __name__ == "__main__":
-    dataset_path = "small-test-dataset.txt"
-
-    # Initialize the classifier with the dataset file
-    test_validator = Validator(dataset_path)
-
-    print(test_validator.validate([3, 5, 7]))
+    main()
