@@ -4,7 +4,7 @@ from classifier import *
 class Validator:
     def __init__(self, file_name: str):
         self.classifier: Classifier = Classifier(file_name)
-        self.global_map: Dict[int, Item_Node] = Classifier.global_node_map
+        self.global_map: Dict[int, Item_Node] = self.classifier.global_node_map
 
     def validate(self, feature_subset_array: List[int]):
         """
