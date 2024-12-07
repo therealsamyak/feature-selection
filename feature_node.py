@@ -4,8 +4,8 @@ from validator import *
 class Feature_Node:
     def __init__(self, features: list[int], prev=None):
         self.features = sorted(features)  # Automatically sort features
-        self.score = feature_validator(
-            self.features
+        self.score = Validator("test.txt").validate(
+            features
         )  # Validate features and compute score
         self.next = []  # Initialize next as an empty list
         self.backward = (
