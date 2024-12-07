@@ -1,7 +1,6 @@
 # import stuff to main as necessary
 from src import *
 
-
 def main():
     # Part 1
     # FeatureDriver.userInputDriver()
@@ -15,4 +14,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    classifier = Classifier("willremovelater.txt")
+    print(classifier.get_number_of_columns)
