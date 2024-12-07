@@ -1,6 +1,7 @@
 # import stuff to main as necessary
 from feature_search import FeatureDriver
-from classifier import Classifier
+from validator import *
+
 
 def main():
     print()
@@ -43,8 +44,6 @@ if __name__ == "__main__":
     dataset_path = "small-test-dataset.txt"
 
     # Initialize the classifier with the dataset file
-    classifier = Classifier(dataset_path)
+    test_validator = Validator(dataset_path)
 
-    # Example access to a node
-    node = classifier.global_node_map[1]
-    print(f"Node ID: {node.id}, Label: {node.label}, Features: {node.features}")
+    print(test_validator.validate([3, 5, 7]))
