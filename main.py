@@ -12,9 +12,9 @@ def main():
     # print(test_validator.validate([3, 5, 7]))
 
     # Debug
-    dataset_path = "datasets/small-test-dataset.txt"
+    dataset_path = "datasets/test.txt"
     test_validator = Validator(dataset_path)
-    print(test_validator.classifier.get_number_of_columns(2))
+    print(test_validator.classifier.print_global_node_map())
 
     return
 
