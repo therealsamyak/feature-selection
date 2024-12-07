@@ -17,32 +17,26 @@ class Classifier:
         self.feature_subset_array: List[int] = []
         self.createItemNodeMap(file_name)
 
-    def createItemNodeMap(self, file_name: str):
+    def createItemNodeMap(self, file_name: str) -> None:
         """
         Reads the dataset file and populates the global_node_map.
         Each line in the file corresponds to an Item_Node.
         """
-        with open(file_name, 'r') as file:
+        with open(file_name, "r") as file:
             lines = file.readlines()
             for idx, line in enumerate(lines, start=1):
                 values = line.strip().split()
                 label = int(float(values[0]))  # First column is the class label
-                features = list(map(float, values[1:]))  # Remaining columns are features
+                features = list(
+                    map(float, values[1:])
+                )  # Remaining columns are features
 
                 # Create an Item_Node and add it to the global_node_map
-                self.global_node_map[idx] = Item_Node(id=idx, label=label, features=features)
+                self.global_node_map[idx] = Item_Node(
+                    id=idx, label=label, features=features
+                )
 
-    def get_number_of_columns(self) -> int:
-        """
-        Determines the number of columns in the dataset by reading the first line.
-        """
-        with open(self.file_name, 'r') as file:  # Use self.file_name
-            first_line = file.readline().strip()
-            if not first_line:
-                raise ValueError("The file is empty or does not contain valid data.")
-            return len(first_line.split())
-
-    def classify(self, uniqueID: int):
+    def classify(self, uniqueID: int) -> int:
         """
         Returns the class label of the given ID based on 1-NN.
         """
@@ -60,7 +54,10 @@ class Classifier:
         for nodeID, nodeData in self.local_node_map.items():
             # Euclidean distance
             local_dist = sqrt(
-                sum((target - local) ** 2 for target, local in zip(target_features, nodeData.features))
+                sum(
+                    (target - local) ** 2
+                    for target, local in zip(target_features, nodeData.features)
+                )
             )
 
             if local_dist < global_dist:
@@ -69,7 +66,7 @@ class Classifier:
 
         return self.local_node_map[closest_node].label
 
-    def train(self, uniqueIDArray: List[int], featureSubsetArray: List[int]):
+    def train(self, uniqueIDArray: List[int], featureSubsetArray: List[int]) -> None:
         self.feature_subset_array = sorted(featureSubsetArray)
 
         for nodeID in uniqueIDArray:
@@ -82,3 +79,13 @@ class Classifier:
             )
 
             self.local_node_map[nodeID] = newNodeData
+
+    def get_number_of_columns(self) -> int:
+        """
+        Determines the number of columns in the dataset by reading the first line.
+        """
+        with open(self.file_name, "r") as file:  # Use self.file_name
+            first_line = file.readline().strip()
+            if not first_line:
+                raise ValueError("The file is empty or does not contain valid data.")
+            return len(first_line.split())
