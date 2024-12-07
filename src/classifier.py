@@ -82,3 +82,14 @@ class Classifier:
             )
 
             self.local_node_map[nodeID] = newNodeData
+
+    def get_number_of_columns(self, number) -> int:
+        """
+        Determines the number of columns in the dataset by reading the first line.
+        """
+        print(number)
+        with open(self.file_name, "r") as file:  # Use self.file_name
+            first_line = file.readline().strip()
+            if not first_line:
+                raise ValueError("The file is empty or does not contain valid data.")
+            return len(first_line.split())

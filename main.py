@@ -7,9 +7,14 @@ def main():
     # FeatureDriver.userInputDriver()
 
     # Part 2
+    # dataset_path = "datasets/small-test-dataset.txt"
+    # test_validator = Validator(dataset_path)
+    # print(test_validator.validate([3, 5, 7]))
+
+    # Debug
     dataset_path = "datasets/small-test-dataset.txt"
     test_validator = Validator(dataset_path)
-    print(test_validator.validate([3, 5, 7]))
+    print(test_validator.classifier.get_number_of_columns(2))
 
     return
 
