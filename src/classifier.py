@@ -65,12 +65,16 @@ class Classifier:
         closest_node = -1
 
         for nodeID, nodeData in self.local_node_map.items():
+            # if nodeID == uniqueID:
+            #     continue
 
             # euclidian distance
             local_dist = sqrt(
                 sum(
                     (target - local) ** 2
-                    for target, local in zip(target_features, nodeData.features)
+                    for target, local in zip(
+                        target_features, nodeData.features, strict=True
+                    )
                 )
             )
 
@@ -78,12 +82,17 @@ class Classifier:
                 global_dist = local_dist
                 closest_node = nodeID
 
-        print(uniqueID, "closest node is", closest_node, "with distance", global_dist)
+        print("Node", uniqueID, "closest node is Node", closest_node, "with distance", global_dist)
         return self.local_node_map[closest_node].label
 
     def train(self, uniqueIDArray: List[int], featureSubsetArray: List[int]):
+        self.local_node_map = dict()
+        self.feature_subset_array = list()
+
         # account for 0-indexing
         self.feature_subset_array = sorted([x - 1 for x in featureSubsetArray])
+        print("Feature Subset:", featureSubsetArray)
+        print("Training IDs: ", uniqueIDArray)
 
         for nodeID in uniqueIDArray:
             nodeData = self.global_node_map[nodeID]
@@ -91,9 +100,8 @@ class Classifier:
             newNodeData = Item_Node(
                 nodeID,
                 nodeData.label,
-                [nodeData.features[i - 1] for i in self.feature_subset_array],
+                [nodeData.features[i] for i in self.feature_subset_array],
             )
-
             self.local_node_map[nodeID] = newNodeData
 
     def get_number_of_columns(self, number) -> int:
