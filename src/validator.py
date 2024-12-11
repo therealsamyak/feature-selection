@@ -41,5 +41,4 @@ class Validator:
             accuracy = 0
             return accuracy
 
-        end_time = time.time_ns()
         return accuracy
