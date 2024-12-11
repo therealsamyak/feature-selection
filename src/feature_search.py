@@ -2,9 +2,10 @@ from .feature_node import *
 
 
 class FeatureDriver:
-    def __init__(self, file_name: str) -> None:
+    def __init__(self, file_name: str):
         self.file_name = file_name
         self.num_features = self.get_number_of_columns(file_name) - 1
+        self.num_items = self.get_number_of_rows(file_name)
         self.global_node = Feature_Node([], self.file_name, None)
 
     def get_number_of_columns(self, file_name) -> int:
@@ -16,6 +17,16 @@ class FeatureDriver:
             if not first_line:
                 raise ValueError("The file is empty or does not contain valid data.")
             return len(first_line.split())
+
+    def get_number_of_rows(self, file_name) -> int:
+        """
+        Determines the number of rows in the dataset by counting the lines in the file.
+        """
+        with open(file_name, "r") as file:
+            row_count = sum(1 for _ in file)
+            if row_count == 0:
+                raise ValueError("The file is empty or does not contain valid data.")
+            return row_count
 
     def forwards(self) -> Feature_Node:
         self.global_node = Feature_Node([], self.file_name, None)
@@ -113,16 +124,28 @@ class FeatureDriver:
                 print(
                     f"Feature set {self.global_node.features} is still the overall best, accuracy is {self.global_node.score}"
                 )
+                print(
+                    "WARNING: ACCURACY HAS DECREASED! Continuing search in case of local maxima..."
+                )
                 print()
 
         return self.global_node
 
-    def userInputDriver(self):
+    def userInputDriver(self) -> None:
         print()
         print("Welcome to Samyak & Ram's Feature Selection Algorithm.")
 
-        test = FeatureDriver("datasets/small-test-dataset.txt")
-        print(f"Total Number of features is {test.num_features}...")
+        test = FeatureDriver(self.file_name)
+
+        print(
+            "The Dataset \'"
+            + test.file_name
+            + "\' has "
+            + str(test.num_features)
+            + " features, with "
+            + str(test.num_items)
+            + " instances."
+        )
 
         print()
         print("Type the number of the algorithm you want to run.")
