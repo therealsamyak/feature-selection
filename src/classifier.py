@@ -10,14 +10,14 @@ class Item_Node:
 
 
 class Classifier:
-    def __init__(self, file_name):
+    def __init__(self, file_name: str):
         self.global_node_map: Dict[int, Item_Node] = {}
         self.local_node_map: Dict[int, Item_Node] = {}
         self.feature_subset_array: List[int] = []
         self.file_name = file_name
         self.createItemNodeMap(file_name)
 
-    def createItemNodeMap(self, file_name: str):
+    def createItemNodeMap(self, file_name: str) -> None:
         """
         Reads the content from file and populates the global_node_map.
         Each line in the file corresponds to an Item_Node.
@@ -40,7 +40,7 @@ class Classifier:
         # Normalize the features in the global_node_map
         self.normalize_features(num_columns)
 
-    def print_global_node_map(self):
+    def print_global_node_map(self) -> None:
         """
         Prints the contents of the global_node_map in a readable format.
         """
@@ -49,7 +49,7 @@ class Classifier:
         for node_id, node in self.global_node_map.items():
             print(f"ID: {node.id}, Label: {node.label}, Features: {node.features}")
 
-    def classify(self, uniqueID: int):
+    def classify(self, uniqueID: int) -> int:
         """
         returns Class Label of that ID based on 1-NN
         """
@@ -85,7 +85,7 @@ class Classifier:
 
         return self.local_node_map[closest_node].label
 
-    def train(self, uniqueIDArray: List[int], featureSubsetArray: List[int]):
+    def train(self, uniqueIDArray: List[int], featureSubsetArray: List[int]) -> None:
         self.local_node_map = dict()
         self.feature_subset_array = list()
 
