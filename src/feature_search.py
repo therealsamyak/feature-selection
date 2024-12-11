@@ -3,8 +3,9 @@ from .feature_node import *
 
 class FeatureDriver:
     def __init__(self, file_name: str) -> None:
+        self.file_name = file_name
         self.num_features = self.get_number_of_columns(file_name) - 1
-        self.global_node = Feature_Node([], None)
+        self.global_node = Feature_Node([], self.file_name, None)
 
     def get_number_of_columns(self, file_name) -> int:
         """
@@ -17,7 +18,7 @@ class FeatureDriver:
             return len(first_line.split())
 
     def forwards(self) -> Feature_Node:
-        self.global_node = Feature_Node([], None)
+        self.global_node = Feature_Node([], self.file_name, None)
         print()
         print(
             f"Feature set {self.global_node.features} is initially the best, accuracy is {self.global_node.score}"
@@ -34,7 +35,7 @@ class FeatureDriver:
                     continue
 
                 new_features = sorted(prev_node.features + [index])
-                curr_node = Feature_Node(new_features, prev_node)
+                curr_node = Feature_Node(new_features, self.file_name, prev_node)
                 print(
                     f"Using feature(s) {curr_node.features}, the accuracy is {curr_node.score}"
                 )
@@ -59,12 +60,17 @@ class FeatureDriver:
                 print(
                     f"Feature set {self.global_node.features} is still the overall best, accuracy is {self.global_node.score}"
                 )
+                print(
+                    "WARNING: ACCURACY HAS DECREASED! Continuing search in case of local maxima..."
+                )
                 print()
 
         return self.global_node
 
     def backwards(self) -> Feature_Node:
-        self.global_node = Feature_Node(list(range(1, self.num_features + 1)), None)
+        self.global_node = Feature_Node(
+            list(range(1, self.num_features + 1)), self.file_name, None
+        )
         print()
         print(
             f"Feature set {self.global_node.features} is initially the best, accuracy is {self.global_node.score}"
@@ -79,7 +85,9 @@ class FeatureDriver:
             for index in prev_node.features:
                 new_features = [f for f in prev_node.features if f != index]
 
-                curr_node = Feature_Node(sorted(new_features), prev_node)
+                curr_node = Feature_Node(
+                    sorted(new_features), self.file_name, prev_node
+                )
 
                 print(
                     f"Using feature(s) {curr_node.features}, the accuracy is {curr_node.score}"

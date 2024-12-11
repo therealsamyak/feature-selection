@@ -12,44 +12,34 @@ class Validator:
         """
         Calculates accuracy of feature_subset using Leave-One-Out validation
         """
+        accuracy = 0
 
-        start_time = time.time_ns()
+        if (len(feature_subset_array)) > 0:
+            keys = list(self.global_map.keys())
+            correctly_classified = 0
 
-        keys = list(self.global_map.keys())
-        correctly_classified = 0
+            # leave one out validator
+            for index, uniqueID in enumerate(keys):
 
-        # leave one out validator
-        for index, uniqueID in enumerate(keys):
-            iteration_start_time = time.time_ns()
+                # train classifier
+                training_data = keys[:index] + keys[index + 1 :]
+                self.classifier.train(training_data, feature_subset_array)
 
-            # train classifier
-            training_data = keys[:index] + keys[index + 1 :]
-            self.classifier.train(training_data, feature_subset_array)
+                # check accuracy
+                if (
+                    abs(
+                        self.global_map[uniqueID].label
+                        - self.classifier.classify(uniqueID)
+                    )
+                    < 0.1
+                ):
+                    correctly_classified += 1
 
-            # check accuracy
-            if (
-                abs(
-                    self.global_map[uniqueID].label - self.classifier.classify(uniqueID)
-                )
-                < 0.1
-            ):
-                iteration_end_time = time.time_ns()
-                print(
-                    "Correctly Classified in "
-                    + str(iteration_end_time - iteration_start_time)
-                    + " nanoseconds!\n"
-                )
-                correctly_classified += 1
-            else:
-                iteration_end_time = time.time_ns()
-                print(
-                    "Incorrectly Classified in "
-                    + str(iteration_end_time - iteration_start_time)
-                    + " nanoseconds.\n"
-                )
+            accuracy = correctly_classified * 1.0 / len(keys)
+
+        else:
+            accuracy = 0
+            return accuracy
 
         end_time = time.time_ns()
-        accuracy = correctly_classified * 1.0 / len(keys)
-        print("Overall accuracy is", accuracy)
-        print("Finished validation in", end_time - start_time, "nanoseconds")
         return accuracy

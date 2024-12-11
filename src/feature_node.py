@@ -2,19 +2,15 @@ from .validator import *
 
 
 class Feature_Node:
-    def __init__(self, features: list[int], prev=None):
+    def __init__(self, features: list[int], file_name: str, prev=None):
         self.features = sorted(features)  # Automatically sort features
-        self.score = Validator("test.txt").validate(
+        self.score = Validator(file_name).validate(
             features
         )  # Validate features and compute score
         self.next = []  # Initialize next as an empty list
         self.backward = (
             prev  # Assign the backward link to the provided previous Feature_Node
         )
-
-    @classmethod
-    def from_existing(cls, features: list[int], prev: "Feature_Node"):
-        return cls(features, prev)
 
     def __lt__(self, other):
         if self.score == other.score:
