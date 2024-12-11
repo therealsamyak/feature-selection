@@ -2,9 +2,19 @@ from .feature_node import *
 
 
 class FeatureDriver:
-    def __init__(self, num_features) -> None:
-        self.num_features = num_features
+    def __init__(self, file_name: str) -> None:
+        self.num_features = self.get_number_of_columns(file_name) - 1
         self.global_node = Feature_Node([], None)
+
+    def get_number_of_columns(self, file_name) -> int:
+        """
+        Determines the number of columns in the dataset by reading the first line.
+        """
+        with open(file_name, "r") as file:  # Use self.file_name
+            first_line = file.readline().strip()
+            if not first_line:
+                raise ValueError("The file is empty or does not contain valid data.")
+            return len(first_line.split())
 
     def forwards(self) -> Feature_Node:
         self.global_node = Feature_Node([], None)
@@ -103,9 +113,8 @@ class FeatureDriver:
         print()
         print("Welcome to Samyak & Ram's Feature Selection Algorithm.")
 
-        total_features = int(input("Please enter total number of features: "))
-        if total_features <= 0:
-            raise ValueError("The number of features must be a positive integer.")
+        test = FeatureDriver("datasets/small-test-dataset.txt")
+        print(f"Total Number of features is {test.num_features}...")
 
         print()
         print("Type the number of the algorithm you want to run.")
@@ -115,8 +124,6 @@ class FeatureDriver:
         choice = int(input("Your choice: "))
         if choice not in (1, 2):
             raise ValueError("Please choose a valid option (1 or 2).")
-
-        test = FeatureDriver(total_features)
 
         if choice == 1:
             best_node = test.forwards()

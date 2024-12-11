@@ -8,7 +8,7 @@ class Validator:
         self.classifier: Classifier = Classifier(file_name)
         self.global_map: Dict[int, Item_Node] = self.classifier.global_node_map
 
-    def validate(self, feature_subset_array: List[int]):
+    def validate(self, feature_subset_array: List[int]) -> int:
         """
         Calculates accuracy of feature_subset using Leave-One-Out validation
         """
