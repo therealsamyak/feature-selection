@@ -16,7 +16,7 @@ def main():
     # test_validator.validate([1, 3, 5])
 
     # Final Part
-    test = FeatureDriver("datasets/small-test-dataset.txt")
+    test = FeatureDriver("datasets/titanic.txt")
     test.userInputDriver()
 
     return
