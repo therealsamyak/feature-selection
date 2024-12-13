@@ -1,4 +1,17 @@
-# import stuff to main as necessary
+# Group: Samyak Kakatur - skaka008 - Session 1, Ram Rao - rrao011 - Session 1
+#
+# Small Dataset Results:
+# - Forward: {3, 5}, Acc: 0.92
+# - Backward: {3, 5}, Acc: 0.92
+#
+# Large Dataset Results:
+# - Forward: {1, 27}, Acc: 0.955
+# - Backward: {1, 27}, Acc: 0.955
+#
+# Titanic
+# - Forward: {2}, Acc: 0.78
+# - Backward: {2}, Acc: 0.78
+
 from src import *
 
 
